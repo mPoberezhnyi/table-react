@@ -7,13 +7,13 @@ export default function Row({items, indexRow, rowSum, increase, removeRow}) {
 
 	const onClickHandler = (indexCol) => increase(indexRow, indexCol);
 
-	const avarage = persents().map((persent, indexCol) => <Cell key={`row-avarage-${indexRow}-col-persent_${indexCol}`}
+	const percentageRow = persents().map((persent, indexCol) => <Cell key={`row-persent-${indexRow}-col_${indexCol}`}
 		 item={`${persent}%`}
 		 style={{background: `linear-gradient(to top, rgba(32, 124, 255, .4) ${persent}%, rgba(255, 255, 255, 0) 0%)`}}
 		 customClass='item'/>
 	);
 
-	const normal = items.map((item, indexCol) => (
+	const normalRow = items.map((item, indexCol) => (
 		<Cell key={`row-normal-${indexRow}-col-${indexCol}`}
 			  item={item.amount}
 			  onClickHandler={onClickHandler}
@@ -22,12 +22,12 @@ export default function Row({items, indexRow, rowSum, increase, removeRow}) {
 			  customClass='item' />
 	));
 
-	const [row, setRow] = useState(normal);
+	const [row, setRow] = useState(normalRow);
 
 
-	const onMouseEnterHandler = () => setRow(avarage);
+	const onMouseEnterHandler = () => setRow(percentageRow);
 
-	const onMouseLeaveHandler = () => setRow(normal);
+	const onMouseLeaveHandler = () => setRow(normalRow);
 
 	const remove = () => removeRow(indexRow);
 

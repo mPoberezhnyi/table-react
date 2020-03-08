@@ -10,17 +10,23 @@ export default function Cell({
     style,
     customClass}) {
 
-    function increase() {
-        onClickHandler && onClickHandler(indexCol)
-    }
+    const increase = () => {
+        if (onClickHandler) {
+			onClickHandler(indexCol)
+        }
+    };
 
-    function calculateRow() {
-        onMouseEnterHandler && onMouseEnterHandler(indexRow, item)
-    }
+    const calculateRow = () => {
+        if (onMouseEnterHandler) {
+			onMouseEnterHandler(indexRow, item)
+        }
+    };
 
-    function refreshRow() {
-        onMouseLeaveHandler && onMouseLeaveHandler(indexRow)
-    }
+    const refreshRow = () => {
+        if (onMouseLeaveHandler) {
+			onMouseLeaveHandler(indexRow)
+        }
+    };
 
     return (
         <span onClick={increase}

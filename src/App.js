@@ -1,40 +1,15 @@
-import React, { useState } from "react";
-import Cell from "./components/Cell";
+import React, { useState } from "react"
+import Cell from "./components/Cell"
 import Row from "./components/Row"
-
-const m = 4;
-const n = 5;
+import {writeRow, writeMatrix, makeDefaultAvarageArray} from "./helper"
+import Constants from "./constants"
 
 export default function App() {
 
-	const randomNumber = () => Math.floor(100 + Math.random() * 899);
-
-    const writeRow = (n) => {
-        let array = new Array(n);
-		array.fill({});
-        return array.map(() => ({
-            _id: Symbol('id'),
-			amount: randomNumber()
-		}))
-    };
-
-    const writeMatrix = (x, y) => {
-        let array = new Array(n);
-        array.fill([]);
-        return array.map(() => writeRow(y))
-    };
-
-    const makeDefaultAvarageArray = (y) => {
-        let array = new Array(y);
-        array.fill(0);
-        return array
-    };
-
-	const arr = writeMatrix(m, n);
-	let defaultAvarageArray = makeDefaultAvarageArray(n);
+	const arr = writeMatrix(Constants.rowCount, Constants.cellCount);
+	const defaultAvarageArray = makeDefaultAvarageArray(Constants.cellCount);
 
 	const [state, setState] = useState(arr);
-
 
 	const increase = (yIndex, xIndex) => {
         const currentNumber = state[yIndex][xIndex];
@@ -68,7 +43,7 @@ export default function App() {
     );
 
     const addRow = () => {
-        const newRow = writeRow(n);
+        const newRow = writeRow(Constants.cellCount);
         const newState = [...state, newRow];
         setState(newState)
     };
@@ -84,13 +59,15 @@ export default function App() {
     return (
         <div className="wrapper">
             {state.map((row, indexRow) => {
-				const currentRowSumm = rowSum[indexRow]
-				return (<Row key={`row_${indexRow}`}
+				const currentRowSumm = rowSum[indexRow];
+				return (
+					<Row key={`row_${currentRowSumm}`}
 					 items={row}
 					 removeRow={removeRow}
 					 increase={increase}
 					 indexRow={indexRow}
-					 rowSum={currentRowSumm}/>)
+					 rowSum={currentRowSumm}/>
+				)
 			})}
 
             {rowAvarage.map((el, idx) => (
