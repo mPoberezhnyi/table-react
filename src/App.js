@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Cell from "./components/Cell";
 import Row from "./components/Row"
 
-const m = 5;
+const m = 4;
 const n = 5;
 
 export default function App() {
@@ -75,13 +75,11 @@ export default function App() {
     return (
         <div>
             {state.map((row, indexRow) => (
-                <div key={`row_${indexRow}`}>
-                    <Row items={row}
-						 increase={increase}
-						 indexRow={indexRow}
-						 rowSum={rowSum[indexRow]} />
-
-                </div>
+                <Row key={`row_${indexRow}`}
+                     items={row}
+                     increase={increase}
+                     indexRow={indexRow}
+                     rowSum={rowSum[indexRow]} />
             ))}
 
             {rowAvarage.map((el, idx) => (
