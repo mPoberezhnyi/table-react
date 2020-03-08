@@ -6,7 +6,8 @@ const m = 4;
 const n = 5;
 
 export default function App() {
-    const randomNumber = () => Math.floor(100 + Math.random() * 899);
+
+	const randomNumber = () => Math.floor(100 + Math.random() * 899);
 
     const writeRow = (n) => {
         let array = new Array(n);
@@ -29,13 +30,13 @@ export default function App() {
         return array
     };
 
+	const arr = writeMatrix(m, n);
+	let defaultAvarageArray = makeDefaultAvarageArray(n);
 
-    let arr = writeMatrix(m, n);
-    let defaultAvarageArray = makeDefaultAvarageArray(n);
+	const [state, setState] = useState(arr);
 
-    const [state, setState] = useState(arr);
 
-    const increase = (yIndex, xIndex) => {
+	const increase = (yIndex, xIndex) => {
         const currentNumber = state[yIndex][xIndex];
         const newState = [...state];
 
@@ -66,21 +67,31 @@ export default function App() {
         [...defaultAvarageArray]
     );
 
-    function addRow() {
+    const addRow = () => {
         const newRow = writeRow(n);
         const newState = [...state, newRow];
         setState(newState)
-    }
+    };
+
+    const removeRow = (indexRow) => {
+        const newState = [
+			...state.slice(0, indexRow),
+			...state.slice(indexRow + 1)
+        ];
+        setState(newState)
+    };
 
     return (
-        <div>
-            {state.map((row, indexRow) => (
-                <Row key={`row_${indexRow}`}
-                     items={row}
-                     increase={increase}
-                     indexRow={indexRow}
-                     rowSum={rowSum[indexRow]} />
-            ))}
+        <div className="wrapper">
+            {state.map((row, indexRow) => {
+				const currentRowSumm = rowSum[indexRow]
+				return (<Row key={`row_${indexRow}`}
+					 items={row}
+					 removeRow={removeRow}
+					 increase={increase}
+					 indexRow={indexRow}
+					 rowSum={currentRowSumm}/>)
+			})}
 
             {rowAvarage.map((el, idx) => (
                 <Cell key={`avarage_${idx}`}
@@ -88,7 +99,7 @@ export default function App() {
                     customClass='item avarage' />
             ))}
 
-            <button className="add-row"
+            <button className="button add-row"
 					onClick={addRow}>
                 +
             </button>
