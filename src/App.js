@@ -1,26 +1,20 @@
 import React, { useState } from "react"
 import Cell from "./components/Cell"
 import Row from "./components/Row"
-import {writeRow, writeMatrix, makeDefaultAvarageArray} from "./helper"
-import Constants from "./constants"
+import {writeRow, arr, defaultAvarageArray} from "./helper"
 
 export default function App() {
-
-	const arr = writeMatrix(Constants.rowCount, Constants.cellCount);
-	const defaultAvarageArray = makeDefaultAvarageArray(Constants.cellCount);
 
 	const [state, setState] = useState(arr);
 
 	const increase = (yIndex, xIndex) => {
         const currentNumber = state[yIndex][xIndex];
         const newState = [...state];
-
         newState[yIndex][xIndex].amount = currentNumber.amount + 1;
-
 		setState(newState);
     };
 
-    const rowSum = state.reduce((acc, currentTop) => {
+    const rowSumm = state.reduce((acc, currentTop) => {
         const currentRowSumm = currentTop.reduce(
             (currentRowRes, currentRowValue) => {
                 return currentRowRes + currentRowValue.amount;
@@ -43,7 +37,7 @@ export default function App() {
     );
 
     const addRow = () => {
-        const newRow = writeRow(Constants.cellCount);
+        const newRow = writeRow();
         const newState = [...state, newRow];
         setState(newState)
     };
@@ -59,14 +53,14 @@ export default function App() {
     return (
         <div className="wrapper">
             {state.map((row, indexRow) => {
-				const currentRowSumm = rowSum[indexRow];
+				const currentRowSumm = rowSumm[indexRow];
 				return (
-					<Row key={`row_${currentRowSumm}`}
+					<Row key={`row_${currentRowSumm+state.length}`}
 					 items={row}
 					 removeRow={removeRow}
 					 increase={increase}
 					 indexRow={indexRow}
-					 rowSum={currentRowSumm}/>
+					 rowSumm={currentRowSumm}/>
 				)
 			})}
 

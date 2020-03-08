@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import Cell	from '../Cell'
 
-export default function Row({items, indexRow, rowSum, increase, removeRow}) {
+export default function Row({items, indexRow, rowSumm, increase, removeRow}) {
 
-	const persents = () => items.map(item => (Math.floor(item.amount / (rowSum / 100))));
+	const persents = () => items.map(item => (Math.floor(item.amount / (rowSumm / 100))));
 
 	const onClickHandler = (indexCol) => increase(indexRow, indexCol);
 
@@ -24,7 +24,6 @@ export default function Row({items, indexRow, rowSum, increase, removeRow}) {
 
 	const [row, setRow] = useState(normalRow);
 
-
 	const onMouseEnterHandler = () => setRow(percentageRow);
 
 	const onMouseLeaveHandler = () => setRow(normalRow);
@@ -39,7 +38,7 @@ export default function Row({items, indexRow, rowSum, increase, removeRow}) {
 			</button>
 			{ row }
 			<Cell key={`sum_${indexRow}`}
-				  item={rowSum}
+				  item={rowSumm}
 				  indexRow={indexRow}
 				  onMouseEnterHandler={onMouseEnterHandler}
 				  onMouseLeaveHandler={onMouseLeaveHandler}
