@@ -7,6 +7,8 @@ export default function App() {
 
 	const [state, setState] = useState(arr);
 
+    
+
 	const increase = (yIndex, xIndex) => {
         const currentNumber = state[yIndex][xIndex];
         const newState = [...state];
